@@ -12,7 +12,7 @@ from PIL import Image
 from colorama import Fore, init
 from pypresence import Presence
 from yandex_music import Client
-
+from pypresence.types import ActivityType
 init(autoreset=True)
 
 CLIENT_ID = "1217562797999784007"
@@ -132,12 +132,13 @@ def update_presence_loop():
 
                     # создаём rpc
                     rpc.update(
+                        activity_type=ActivityType.LISTENING,
                         details=f"🎵 {artist} — {title}",
                         state=f"💿 {album}" if album else "🎶 Yandex Music",
                         large_image=large_image,
                         large_text=large_text,
                         small_image="play" if status == "Playing" else "pause",
-                        small_text="▶️ playing" if status == "Playing" else "⏸️ paused",
+                        small_text="▶️  playing" if status == "Playing" else "⏸️ paused",
                         start=start_time
                     )
 
