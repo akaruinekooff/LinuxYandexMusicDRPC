@@ -53,6 +53,9 @@ def get_mpris_track():
             player = session_bus.get_object(player_name, '/org/mpris/MediaPlayer2')
             props = dbus.Interface(player, 'org.freedesktop.DBus.Properties')
             status = props.Get('org.mpris.MediaPlayer2.Player', 'PlaybackStatus')
+            identity = props.Get('org.mpris.MediaPlayer2', 'Identity')
+            if not ("yandex" in identity.lower()):
+                continue
             meta = props.Get('org.mpris.MediaPlayer2.Player', 'Metadata')
             artist = ', '.join(meta.get('xesam:artist', []))
             title = meta.get('xesam:title', 'Unknown')
